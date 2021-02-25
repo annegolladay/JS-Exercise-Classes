@@ -60,9 +60,35 @@ class Airplane {
   */
   
  class Car {
-    
+    constructor(model, mpg) {
+      this.model = model;
+      this.mpg = mpg;
+      this.tank = 0;
+      this.odometer = 0;
+    }
+    fill(gallons) {
+      this.tank = this.tank + gallons;
+    }
+    drive(distance) {
+      const driveableMiles = this.tank * this.mpg;
+      if(distance <= driveableMiles) {
+        this.odometer = this.odometer + distance;
+        this.tank = this.tank - (distance / this.mpg);
+      } else {
+        this.odometer = this.odometer + driveableMiles;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles!`;
+      }
+    }
   }
   
+  const mustang = new Car('mustang', 15);
+
+  mustang.fill(30);
+  
+  console.log(mustang.drive(451));
+
+
   /*
     TASK 3
       - Write a Lambdasian class.
