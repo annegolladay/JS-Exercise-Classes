@@ -48,12 +48,15 @@ class Airplane {
       this.stomach = [];
     }
     eat(edible) {
-      if(this.stomach.length <= 10) {
+      if(this.stomach.length < 10) {
         this.stomach.push(edible);
       }
     }
     poop() {
       this.stomach = [];
+    }
+    toString() {
+      return `${this.name}, ${this.age}`;
     }
   }
   
@@ -72,7 +75,26 @@ class Airplane {
   */
   
  class Car {
-    
+    constructor(model, mpg) {
+      this.model = model;
+      this.milesPerGallon = mpg;
+      this.tank = 0;
+      this.odometer = 0;
+    }
+    fill(gallons) {
+      this.tank = this.tank + gallons;
+    }
+    drive(dist) {
+      const driveableMiles = this.tank * this.milesPerGallon;
+      if(dist <= driveableMiles) {
+        this.odometer = this.odometer + dist;
+        this.tank = this.tank - (dist / this.milesPerGallon);
+      }else {
+        this.odometer = this.odometer + driveableMiles;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles!`;
+      }
+    }
   }
   
   /*
@@ -145,7 +167,8 @@ class Airplane {
      constructor(attrs) {
        super(attrs);
        this.previousBackground = attrs.previousBackground;
-       this.className = attrs.favSubjects;
+       this.className = attrs.className;
+       this.favSubjects = attrs.favSubjects;
      }
      //methods go here
      listSubjects() {
